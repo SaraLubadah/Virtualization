@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Register</title>
+</head>
+<body>
+
+<h1>Register for Course</h1>
+
+<form method="POST">
+
+Student Name:
+<input type="text" name="student_name" required>
+
+<br><br>
+
+Course:
+<select name="course_id">
+
+{% for course in courses %}
+<option value="{{ course[0] }}">
+{{ course[1] }}
+</option>
+{% endfor %}
+
+</select>
+
+<br><br>
+
+<button type="submit">
+Register
+</button>
+
+</form>
+
+</body>
+</html>
