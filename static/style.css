@@ -27,10 +27,12 @@ padding: 0;
 .card {
     background: white;
     padding: 20px;
-    margin-bottom: 15px;
+    margin: 15px 0;
     border-radius: 12px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    transition: transform 0.2s;
+
+    display: inline-block;
+    min-width: 350px;
 }
 
 .card:hover {
@@ -77,9 +79,11 @@ button {
     background: #3498db;
     color: white;
     border: none;
-    padding: 12px 18px;
+    padding: 14px 28px;
     border-radius: 8px;
     cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
 }
 
 button:hover {
