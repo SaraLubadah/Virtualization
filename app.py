@@ -49,8 +49,8 @@ def register():
     return render_template('register.html', courses=courses)
 
 # View Registrations
-@app.route('/mycourses')
-def mycourses():
+@app.route('/all_registrations')
+def all_registrations():
     conn = get_connection()
     cur = conn.cursor()
 
@@ -67,9 +67,9 @@ def mycourses():
     conn.close()
 
     return render_template(
-        'mycourses.html',
-        registrations=registrations
-    )
+    'all_registrations.html',
+    registrations=registrations
+)
 
 # Admin Panel
 @app.route('/admin')
@@ -121,6 +121,35 @@ def delete_course(id):
 
     return redirect('/admin')
 
+
+@app.route('/mycourses', methods=['GET', 'POST'])
+def mycourses():
+
+    courses = []
+
+    if request.method == 'POST':
+
+        student_name = request.form['student_name']
+
+        conn = get_connection()
+        cur = conn.cursor()
+
+        cur.execute("""
+            SELECT courses.course_name
+            FROM registrations
+            JOIN courses
+            ON registrations.course_id = courses.id
+            WHERE registrations.student_name = %s
+        """, (student_name,))
+
+        courses = cur.fetchall()
+
+        conn.close()
+
+    return render_template(
+        'mycourses.html',
+        courses=courses
+    )
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
